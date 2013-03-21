@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<title>Mapilicious</title>
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" media="all" href="css/style.css"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+		
+	</head>
+	
+	<body lang="en">
+		<a name="top"></a>
+		<header>
+			<h1>Mapilicious</h1>
+			<p>A jQuery Plugin to easily add links to google maps to your address tags.<p>
+			<nav>
+				<p><a href="#overview">Overview</a> | <a href="#examples">Examples</a> | <a href="#implementation">Implementation</a> | <a href="#options">Options Reference</a></p>
+			</nav>
+		</header>
+		<section id="page_content">
+			<div class="screen">
+				<div class="liner">
+					<h2 id="overview">Overview</h2>
+					<p>This plugin was created out of necessity. One day I decided I was sick of going to Google Maps, entering an address, clicking the little link icon, and copying the URL for a link whenever I added an address to something. This plugin automates that process. It finds the <code>&lt;address&gt;</code> tags and appends a link to the address on Google maps. See some examples below.</p>
+					<h2 id="examples">Examples</h2>
+					<h3>Before Mapilicious was run:</h3>
+					<address class="ignore">1600 Pennsylvania Ave NW<br>Washington, DC 20500</address>
+					<address class="ignore"><strong>1600 Amphitheatre Pkwy</strong><br/>Mountain View, CA 94043</address>
+					<address class="ignore"><a href="http://apple.com">1 Infinite Loop<br/>
+					Cupertino, CA 95014</a></address>
+					<h3>After Mapilicious was run:</h3>
+					<address>1600 Pennsylvania Ave NW<br>Washington, DC 20500</address>
+					<address><strong>1600 Amphitheatre Pkwy</strong><br/>Mountain View, CA 94043</address>
+					<address><a href="http://apple.com">1 Infinite Loop<br/>Cupertino, CA 95014</a></address>
+					<h2 id="implementation">Implementation</h2>
+					<p>It's as easy as 1-2-3:</p>
+					<h3>01. Include the Javascript</h3>
+					<p>You will need to include the jQuery and  jQuery Mapilicious  right before the closing <code>&lt;/body&gt;</code> tag (or in the <code>&lt;head&gt;</code> if you prefer). Link to them where ever you have them stored.</p>
+					<code class="block">
+						<span class="context">...</span><br>
+						<span class="tab">&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br>
+						<span class="tab">&lt;script src=&quot;jquery.mapilicious.min.js&quot;&gt;&lt;/script&gt;</span><br>
+						<span class="context">&lt;/body&gt;</span>
+					</code>
+					<h3>02. Verify markup of  addresses in your code</h3>
+					<p>Mapilicious needs to know where the addresses in your code are. The semantic way to markup an address is to use the <code>&lt;address&gt;</code> tag. Ideally, you should wrap all your addresses in this tag. The default behavior for Mapilicious is to look for address tags and use them to insert the links.</p>
+					<p>If you are unable to format your addresses this way, however, you can select the addresses on your page with any other jQuery selector.</p>
+					<h3>03. Fire up Mapilicious and enjoy</h3>
+					<p>If you are using all the default behavior, all you need is the following code inserted after the scripts included in step 1:</p>
+					<code class="block">
+						<span class="context">&lt;script&gt;</span><br>
+						<span class="tab">$().mapilicious();</span> <br>
+						<span class="context">&lt;/script&gt;</span>
+					</code>
+					<p>If you have  markup for your addresses other than the standard &lt;address&gt; tag, just target your addresses with the jQuery selector like such:</p>
+					<code class="block">
+						<span class="context">&lt;script&gt;</span><br>
+						<span class="tab">$('p.address').mapilicious();</span> <br>
+						<span class="context">&lt;/script&gt; </span>
+					</code>
+					<p>And, of course, the <code>p.address</code> would be replaced with whatever selector you are using.</p>
+					<p>Voila!</p>
+					<h2 id="options">Options Reference</h2>
+					<p>Here's the fun part. The options. Options can be sent to Mapilicious in the standard jQuery way. Here's an example:</p>
+					<code class="block">
+						<span class="context">&lt;script&gt;</span><br>
+						<span class="tab">$().mapilicious({</span><br>
+							<span class="tab tab2">option: 'value',</span><br>
+							<span class="tab tab2">option: 'value'</span><br>
+							<span class="tab">});</span> <br>
+						<span class="context">&lt;/script&gt;</span>
+					</code>
+					<p>Below is the list of options, what they do, and their default values:</p>
+					<dl>
+						<dt>range: <span class="default">'address'</span></dt>
+						<dd>This sets where Mapilicious looks for addresses. This value gets set automatically (based on how Mapilicious is initiated) and doesn't ever really need to be used as an option.</dd>
+
+						<dt>placement: <span class="default">'append'</span></dt>
+						<dd><em>Options: 'append', 'prepend', 'after', 'before'</em><br>
+							append - puts the link inside selector (<code>&lt;address&gt;</code>) at the end<br>
+							prepend - puts the link inside the selector at the beginning<br>
+							after - puts it outside the selector after<br>
+							before puts it outside the selector before</dd>
+
+						<dt>mapUrl: <span class="default">'https://maps.google.com/maps?q='</span></dt>
+						<dd>This is the base for the URL of the map link. Mapilicious is set to use Google maps by default, but if for some odd reason you want to use something else, you can enter the URL with this option. Note the <code>?q=</code> at the end of the URL. This is the query string for Google. Other services would probably use something slightly different.</dd>
+
+						<dt>linkText: <span class="default">'Map'</span></dt>
+						<dd>This is the text used for the map link. It can be set to something else if you prefer different verbiage.</dd>
+
+						<dt>linkTemplate: <span class="default">'&lt;div class="mapilicious_map_link"&gt;{link}&lt;/div&gt;'</span></dt>
+						<dd>This is how the link is wrapped. The <code>{link}</code> will be replaced with the actual link. If you only want the link appended and no wrapping markup, this can be set to an empty string or <code>false</code>.</dd>
+
+						<dt>linkAttr: <span class="default">''&nbsp;&nbsp;&nbsp;&mdash;empty</span></dt>
+						<dd>This option gives the ability to add a string to the map link. This can be used to add classes, a target, or other html attributes.</dd>
+					</dl>
+					<p>That's all folks. Issues? Github it.</p>
+					<hr/>
+					<p><a href="#top">To the top!</a></p>
+				</div>
+			</div>
+		</section>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="jquery.mapilicious.js"></script>
+		<script>
+			$(function(){
+				$('address:not(.ignore)').mapilicious();
+			});
+		</script>
+	</body>
+	
+</html>

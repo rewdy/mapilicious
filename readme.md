@@ -20,16 +20,10 @@ Include the Javascript before the closing body tag (and update the script src's 
 		});
 	</script>
 
-That's all for a basic set up. More detailed instructions are available in the repo index.html file on at [rewdy.com](1)
+That's all for a basic set up. More detailed instructions are available in the repo index.html file on at [rewdy.com](http://rewdy.com/projects/view/mapilicious/)
 
 
 
 ## Examples, options reference, etc
 
-Available at: [rewdy.com](2) and in the repo.
-
----
-
-1: http://rewdy.com/projects/mapilicious
-
-2: http://rewdy.com/tools-files/mapilicious
+Available at: [rewdy.com](http://rewdy.com/tools-files/mapilicious) and in the repo.
